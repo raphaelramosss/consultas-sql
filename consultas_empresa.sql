@@ -126,3 +126,38 @@ where d.essn > 1 and t.horas > 5 and l.dlocalizacao = "Houston"
 group by e.pnome
 
 -- 35 Selecione o ssn, o nome dos empregados, o nome e total de horas trabalhadas por projeto.
+select e.ssn, e.pnome, sum(t.horas) from empregado as e
+inner join trabalha_em as t on (e.ssn =  t.essn)
+group by e.pnome
+
+-- 36 Selecione o ssn e o nome de todos os empregados que ganham mais que seu supervisor. 
+
+-- 37 Selecione o nome e salário dos empregados, e o nome e salário do supervisor, e a diferença de salários entre eles, para todos os empregados.
+select e.pnome as empregado, e.salario, d.pnome as supervisor, d.salario, e.salario - d.salario as diferençaSalarial from empregado as e
+inner join empregado as d on (e.ssn = d.superssn)
+
+-- 38 Selecione o nome do projeto, o nome do departamento, sua localização e a quantidades de empregados que trabalham nele.
+select p.pjnome, d.dnome, l.dlocalizacao, count(e.ssn) as totalEmpregados from trabalha_em as t
+inner join projeto as p on (t.pno = p.pnumero)
+inner join empregado as e on (t.essn = e.ssn)
+inner join departamento as d on (e.dno = d.dnumero)
+inner join dept_localizacoes as l on (d.dnumero = l.dnumero)
+group by p.pjnome
+order by p.pjnome asc
+
+-- 39 Selecione o ssn e o nome de todos os empregados que gerenciam mais de um departamento.
+select e.ssn, e.pnome from empregado as e
+inner join departamento as d on (d.gerssn = e.ssn)
+group by e.pnome
+having count(d.gerssn) > 1
+
+-- 40 Selecione o ssn e nome dos empregados que gerenciam um departamento que não é o seu. 
+select e.ssn, e.pnome from empregado as e
+inner join departamento as d on (d.gerssn = e.ssn)
+where e.dno != d.dnumero
+
+-- 41 Selecione o ssn e nome dos empregados que têm um casal de ﬁlhos.
+select e.ssn, e.pnome from empregado as e 
+inner join dependente as d on (d.essn = e.ssn)
+group by e.pnome
+having count(d.essn) > 1
