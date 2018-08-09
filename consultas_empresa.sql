@@ -35,8 +35,7 @@ select p.nome_dependente, date_format(p.datanasc, '%d/%m/%y') as DataNascimento 
 -- 12 Selecione o nome de todos os projetos que estão localizados em Stafford.
 select e.pjnome from projeto as e where e.plocalizacao = "Stafford"
 
--- 13 Selecione o nome concatenado pelo último nome de todos os empregados do sexo feminino, que
--- ganham mais de 3000 e que mora em Berry.
+/* 13 Selecione o nome concatenado pelo último nome de todos os empregados do sexo feminino, que ganham mais de 3000 e que mora em Berry.*/
 
 select concat(e.unome,", ", e.pnome) as nome_completo from empregado as e where e.sexo = "F" and e.salario > 3000 and e.endereco = "Berry"
 
@@ -63,15 +62,12 @@ select sum(e.salario) as SomaSalarioDepartamento4 from empregado as e where e.dn
 
 -- 21 Selecione a média de todos os salários dos empregados que moram em Houston e que são do sexo
 -- masculino.
-
 select avg(e.salario) as MediaEmpregados from empregado as e where e.endereco = 'Houston' and e.sexo = 'M'
 
 -- 22 Selecione o nome dos empregados e a quantidade de vezes que cada nome se repete.
-
 select e.pnome, count(*) from empregado as e group by e.pnome
 
 -- 23 Selecione o tipo de parentesco dos dependentes e a quantidade de vezes em que cada tipo aparece
-
 select e.parentesco, count(*) from dependente as e group by e.parentesco
 
 -- 24 Selecione todos os empregados ordenados acesdentemente por nome.
@@ -87,10 +83,9 @@ select * from empregado as e order by e.salario desc, e.pnome asc
 select * from dependente as d inner join empregado as e on (d.essn = e.ssn)
 group by e.pnome
 
-/* 28 Selecione o nome e a data de nascimento dos empregados e o nome e a data de nascimento
- do dependente cônjugue, em que a data de nascimento do empregado for menor que a data de
- nascimento do seu cônjugue. */
-
+/* 28 Selecione o nome e a data de nascimento dos empregados e o nome e a data de nascimento 
+do dependente cônjugue, em que a data de nascimento do empregado for menor que a data de
+nascimento do seu cônjugue. */
 select e.pnome, e.datanasc, d.nome_dependente, d.datanasc from empregado as e
 inner join dependente as d on (e.ssn = d.essn)
 where e.datanasc < d.datanasc
@@ -98,7 +93,36 @@ where e.datanasc < d.datanasc
 -- 29 Selecione todos os empregados que trabalham em um projeto cujo departamento não é o seu 
 select * from empregado as e 
 inner join trabalha_em as t on (e.ssn = t.essn)
-inner join projeto as p on (t.pno = p.dnum)
+inner join projeto as p on (t.pno = p.pnumero)
 where e.dno != p.dnum
 
 -- 30 Selecione o ssn, o nome, e a diferença salarial em relação à média por sexo dos funcionários
+
+-- 31 Selecione o ssn e o nome todos os empregados que trabalham mais de 40 horas
+select e.ssn, e.pnome from empregado as e
+inner join trabalha_em as t on (e.ssn = t.essn)
+where t.horas > 40
+
+-- 32 Selecione o nome e a quantidades de dependentes de todos os funcionários.
+select e.pnome, count(d.essn) as dependentes from empregado as e
+inner join dependente as d on (e.ssn = d.essn)
+group by e.pnome
+
+/* 33 Selecione o ssn e o nome de todos os funcionários que trabalham apenas em projetos do próprio
+departamento */
+select e.ssn, e.pnome from empregado as e 
+inner join trabalha_em as t on (e.ssn = t.essn)
+inner join projeto as p on (t.pno = p.pnumero)
+where e.dno = p.dnum
+
+/* 34 Selecione o ssn, nome e data de nascimento de todos os empregados que tem mais de um
+dependente, que trabalham mais de 5 horas e cujo departamento do projeto esteja em "Houston". */
+select e.ssn, e.pnome, e.datanasc from empregado as e
+inner join dependente as d on (e.ssn = d.essn)
+inner join trabalha_em as t on (e.ssn = t.essn)
+inner join departamento as p on ( p.dnumero = e.dno)
+inner join dept_localizacoes as l on (l.dnumero = p.dnumero)
+where d.essn > 1 and t.horas > 5 and l.dlocalizacao = "Houston"
+group by e.pnome
+
+-- 35 Selecione o ssn, o nome dos empregados, o nome e total de horas trabalhadas por projeto.
