@@ -98,6 +98,7 @@ where e.dno != p.dnum
 
 -- 30 Selecione o ssn, o nome, e a diferença salarial em relação à média por sexo dos funcionários
 
+
 -- 31 Selecione o ssn e o nome todos os empregados que trabalham mais de 40 horas
 select e.ssn, e.pnome from empregado as e
 inner join trabalha_em as t on (e.ssn = t.essn)
@@ -131,6 +132,10 @@ inner join trabalha_em as t on (e.ssn =  t.essn)
 group by e.pnome
 
 -- 36 Selecione o ssn e o nome de todos os empregados que ganham mais que seu supervisor. 
+select s.ssn, s.pnome from empregado as e
+inner join empregado as s on (s.superssn = e.ssn)
+where s.salario > e.salario
+group by s.pnome
 
 -- 37 Selecione o nome e salário dos empregados, e o nome e salário do supervisor, e a diferença de salários entre eles, para todos os empregados.
 select e.pnome as empregado, e.salario, d.pnome as supervisor, d.salario, e.salario - d.salario as diferençaSalarial from empregado as e
