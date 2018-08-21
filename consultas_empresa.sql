@@ -97,7 +97,10 @@ inner join projeto as p on (t.pno = p.pnumero)
 where e.dno != p.dnum
 
 -- 30 Selecione o ssn, o nome, e a diferença salarial em relação à média por sexo dos funcionários
-
+select e.ssn,e.pnome, e.unome, ms.media_salario, ms.media_salario - e.salario as mediaSalarioPorSexo
+from empregado as e inner join (select e2.sexo,avg(e2.salario) as media_salario from empregado as e2 group by e2.sexo) as ms
+on (ms.sexo = e.sexo)
+	
 
 -- 31 Selecione o ssn e o nome todos os empregados que trabalham mais de 40 horas
 select e.ssn, e.pnome from empregado as e
