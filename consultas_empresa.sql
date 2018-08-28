@@ -11,7 +11,7 @@ select p.pnumero, p.pjnome, p.plocalizacao from projeto as p order by p.pjnome
 select e.ssn, e.pnome, date_format(e.datanasc,'%d/%m/%y') as DataNascimento from empregado as e
 
 -- 5 Selecione o nome de todos os empregados que não possuem supervisor
-select * from empregado as e having e.superssn is null
+select * from empregado as e where e.superssn is null
 
 -- 6 Selecione todos os dependentes que são cônjuge
 select * from dependente where parentesco = "CÔNJUGE"
@@ -37,7 +37,7 @@ select e.pjnome from projeto as e where e.plocalizacao like "%Stafford"
 
 /* 13 Selecione o nome concatenado pelo último nome de todos os empregados do sexo feminino, que ganham mais de 3000 e que mora em Berry.*/
 
-select concat(e.unome,", ", e.pnome) as nome_completo from empregado as e where e.sexo = "F" and e.salario > 3000 and e.endereco = "Berry"
+select concat(e.unome,", ", e.pnome) as nome_completo from empregado as e where e.sexo = "F" and e.salario > 3000 and e.endereco like "%Berry"
 
 -- 14 Selecione todos os empregados que ganham salário entre 38000 e 43000.
 select * from empregado as e where e.salario > 38000 and e.salario < 43000
