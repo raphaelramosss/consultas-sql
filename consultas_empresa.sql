@@ -17,7 +17,7 @@ select * from empregado as e having e.superssn is null
 select * from dependente where parentesco = "CÔNJUGE"
 
 -- 7 Selecione todos os empregados que têm salário maior que 30000.
-select * from empregado as e having e.salario > 30000
+select * from empregado as e where e.salario > 30000
 
 -- 8 Selecione todos os empregados do sexo femino e que ganham mais que 25000.
 select * from empregado as e where e.sexo = "F" and e.salario > 25000 order by e.pnome
@@ -26,14 +26,14 @@ select * from empregado as e where e.sexo = "F" and e.salario > 25000 order by e
 select * from empregado as e where e.pnome like('j%')
 
 -- 10 Selecione todos os empregados que possui endereço em Houston.
-select * from empregado as e where e.endereco = "%Houston"
+select * from empregado as e where e.endereco like "%Houston"
 
 -- 11 Selecione o nome e a data de nascimento (dd-mm-yyyy) de todos os dependentes que são cônjuge
 --ou que são filho.
 select p.nome_dependente, date_format(p.datanasc, '%d/%m/%y') as DataNascimento from dependente as p where p.parentesco = 'Cônjuge' or p.parentesco = 'Filho'
 
 -- 12 Selecione o nome de todos os projetos que estão localizados em Stafford.
-select e.pjnome from projeto as e where e.plocalizacao = "Stafford"
+select e.pjnome from projeto as e where e.plocalizacao like "%Stafford"
 
 /* 13 Selecione o nome concatenado pelo último nome de todos os empregados do sexo feminino, que ganham mais de 3000 e que mora em Berry.*/
 
