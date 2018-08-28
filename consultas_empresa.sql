@@ -26,7 +26,7 @@ select * from empregado as e where e.sexo = "F" and e.salario > 25000 order by e
 select * from empregado as e where e.pnome like('j%')
 
 -- 10 Selecione todos os empregados que possui endereço em Houston.
-select * from empregado as e having e.endereco = 'Houston'
+select * from empregado as e where e.endereco = "%Houston"
 
 -- 11 Selecione o nome e a data de nascimento (dd-mm-yyyy) de todos os dependentes que são cônjuge
 --ou que são filho.
