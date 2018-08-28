@@ -40,7 +40,7 @@ select e.pjnome from projeto as e where e.plocalizacao like "%Stafford"
 select concat(e.unome,", ", e.pnome) as nome_completo from empregado as e where e.sexo = "F" and e.salario > 3000 and e.endereco like "%Berry"
 
 -- 14 Selecione todos os empregados que ganham salário entre 38000 e 43000.
-select * from empregado as e where e.salario > 38000 and e.salario < 43000
+select * from empregado as e where e.salario between 38000 and 43000
 
 -- 15 Selecione a quantidade de empregados por sexo.
 select e.sexo, count(*) as quantidade from empregado as e group by e.sexo
