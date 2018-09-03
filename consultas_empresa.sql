@@ -62,7 +62,7 @@ select sum(e.salario) as SomaSalarioDepartamento4 from empregado as e where e.dn
 
 -- 21 Selecione a média de todos os salários dos empregados que moram em Houston e que são do sexo
 -- masculino.
-select avg(e.salario) as MediaEmpregados from empregado as e where e.endereco = 'Houston' and e.sexo = 'M'
+select avg(e.salario) as MediaEmpregados from empregado as e where e.endereco like "%Houston" and e.sexo = 'M'
 
 -- 22 Selecione o nome dos empregados e a quantidade de vezes que cada nome se repete.
 select e.pnome, count(*) from empregado as e group by e.pnome
@@ -126,7 +126,7 @@ inner join dependente as d on (e.ssn = d.essn)
 inner join trabalha_em as t on (e.ssn = t.essn)
 inner join departamento as p on ( p.dnumero = e.dno)
 inner join dept_localizacoes as l on (l.dnumero = p.dnumero)
-where d.essn > 1 and t.horas > 5 and l.dlocalizacao = "Houston"
+where d.essn > 1 and t.horas > 5 and l.dlocalizacao like "%Houston"
 group by e.pnome
 
 -- 35 Selecione o ssn, o nome dos empregados, o nome e total de horas trabalhadas por projeto.
