@@ -92,9 +92,10 @@ where e.datanasc < d.datanasc
 
 -- 29 Selecione todos os empregados que trabalham em um projeto cujo departamento não é o seu 
 select * from empregado as e 
-inner join trabalha_em as t on (e.ssn = t.essn)
-inner join projeto as p on (t.pno = p.pnumero)
-where e.dno != p.dnum
+inner join trabalha_em as t on (t.essn = e.ssn)
+inner join ( select p.dnum, p.pnumero from projeto as p group by p.dnum ) as pr
+on (t.pno = pr.pnumero)
+where e.dno != pr.dnum group by e.pnome
 
 -- 30 Selecione o ssn, o nome, e a diferença salarial em relação à média por sexo dos funcionários
 select e.ssn,e.pnome, e.unome, ms.media_salario, ms.media_salario - e.salario as mediaSalarioPorSexo
