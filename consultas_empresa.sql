@@ -26,14 +26,14 @@ select * from empregado as e where e.sexo = "F" and e.salario > 25000 order by e
 select * from empregado as e where e.pnome like('j%')
 
 -- 10 Selecione todos os empregados que possui endereço em Houston.
-select * from empregado as e where e.endereco like "%Houston"
+select * from empregado as e where e.endereco like "%Houston%"
 
 -- 11 Selecione o nome e a data de nascimento (dd-mm-yyyy) de todos os dependentes que são cônjuge
 --ou que são filho.
 select p.nome_dependente, date_format(p.datanasc, '%d/%m/%y') as DataNascimento from dependente as p where p.parentesco = 'Cônjuge' or p.parentesco = 'Filho'
 
 -- 12 Selecione o nome de todos os projetos que estão localizados em Stafford.
-select e.pjnome from projeto as e where e.plocalizacao like "%Stafford"
+select e.pjnome from projeto as e where e.plocalizacao like "%Stafford%"
 
 /* 13 Selecione o nome concatenado pelo último nome de todos os empregados do sexo feminino, que ganham mais de 3000 e que mora em Berry.*/
 
@@ -127,7 +127,7 @@ inner join dependente as d on (e.ssn = d.essn)
 inner join trabalha_em as t on (e.ssn = t.essn)
 inner join departamento as p on ( p.dnumero = e.dno)
 inner join dept_localizacoes as l on (l.dnumero = p.dnumero)
-where d.essn > 1 and t.horas > 5 and l.dlocalizacao like "%Houston"
+where d.essn > 1 and t.horas > 5 and l.dlocalizacao like "%Houston%"
 group by e.pnome
 
 -- 35 Selecione o ssn, o nome dos empregados, o nome e total de horas trabalhadas por projeto.
