@@ -104,9 +104,10 @@ on (ms.sexo = e.sexo)
 	
 
 -- 31 Selecione o ssn e o nome todos os empregados que trabalham mais de 40 horas
-select e.ssn, e.pnome from empregado as e
-inner join trabalha_em as t on (e.ssn = t.essn)
-where t.horas > 40
+select e.ssn, e.pnome, sum(t.horas) somahr
+from empregado as e inner join trabalha_em as t on (e.ssn = t.essn)
+group by e.ssn
+having sum(somahr) > 40
 
 -- 32 Selecione o nome e a quantidades de dependentes de todos os funcionários.
 select e.pnome, count(d.essn) as dependentes from empregado as e
