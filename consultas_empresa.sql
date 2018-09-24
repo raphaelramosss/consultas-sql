@@ -137,10 +137,10 @@ inner join trabalha_em as t on (e.ssn =  t.essn)
 group by e.pnome
 
 -- 36 Selecione o ssn e o nome de todos os empregados que ganham mais que seu supervisor. 
-select s.ssn, s.pnome from empregado as e
-inner join empregado as s on (s.superssn = e.ssn)
+select e.pnome, e.salario, e.superssn, s.pnome, s.superssn, s.salario from empregado as e
+inner join empregado as s on (e.ssn = s.superssn)
+-- s.salario (Salário do empregado) e e.salario (Salário do supervisor)
 where s.salario > e.salario
-group by s.pnome
 
 -- 37 Selecione o nome e salário dos empregados, e o nome e salário do supervisor, e a diferença de salários entre eles, para todos os empregados.
 select e.pnome as empregado, e.salario, d.pnome as supervisor, d.salario, e.salario - d.salario as diferençaSalarial from empregado as e
