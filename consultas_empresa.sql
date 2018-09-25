@@ -42,13 +42,17 @@ select concat(e.unome,", ", e.pnome) as nome_completo from empregado as e where 
 -- 14 Selecione todos os empregados que ganham salário entre 38000 e 43000.
 select * from empregado as e where e.salario between 38000 and 43000
 
--- 15 Selecione a quantidade de empregados por sexo.
-select e.sexo, count(*) as quantidade from empregado as e group by e.sexo
+-- 15 Selecione o número do departamento e quantidade de empregados por sexo.
+select 	e.dno, 
+	sum(case when e.sexo = 'F' then 1 else 0 end) feminino,
+        sum(case when e.sexo = 'M' then 1 else 0 end) masculino
+from empregado as e
+group by e.dno
 
--- 16 Selecione a quantidade de empregados por departamento.
+-- 16 Selecione o número do departamento e a quantidade de empregados por departamento.
 select e.dno as CodigoDepartamento, count(e.ssn) as QuantidadeEmpregados from empregado as e group by e.dno
 
--- 17 Selecione a quantidade de projetos por departamento
+-- 17 Selecione o número do edpartamento e a quantidade de projetos por departamento
 select p.dnum as departamento ,count(p.dnum) as TotalProjetos from projeto as p group by p.dnum
 
 -- 18 Selecione a média salarial por departamento.
