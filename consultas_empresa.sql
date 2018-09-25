@@ -43,9 +43,7 @@ select concat(e.unome,", ", e.pnome) as nome_completo from empregado as e where 
 select * from empregado as e where e.salario between 38000 and 43000
 
 -- 15 Selecione o número do departamento e quantidade de empregados por sexo.
-select 	e.dno, 
-	sum(case when e.sexo = 'F' then 1 else 0 end) feminino,
-        sum(case when e.sexo = 'M' then 1 else 0 end) masculino
+select 	e.dno, sum(case when e.sexo = 'F' then 1 else 0 end) feminino, sum(case when e.sexo = 'M' then 1 else 0 end) masculino
 from empregado as e
 group by e.dno
 
